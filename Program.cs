@@ -36,8 +36,8 @@ namespace MaderaConsola
                 {
                     case "J09":
                         //Calcular las cantidadad de tablas puestas en el ancho del crate 
-                        tabla96 = Convert.ToInt16(decimal.Round(Convert.ToDecimal(width/(anchoTabla96)), 0)) + tablasPorDefecto;
-
+                        tabla96 = Convert.ToInt16(decimal.Round(Convert.ToDecimal(width / anchoTabla96), 0)) + tablasPorDefecto;
+                        
                         if (height <= (MedidaTabla96 / 6))
                         {
                             tabla96 = tabla96 / 6;
@@ -68,13 +68,13 @@ namespace MaderaConsola
                                         }
                                         else
                                         {
-                                            //Se usa la tabla entera
+                                            //Se usa la tabla 96 entera
+
                                         }
                                     }
                                 }
                             }
                         }
-                        Console.WriteLine(tabla96);
                         break;
                     case "J07":
                         //
@@ -95,6 +95,32 @@ namespace MaderaConsola
                         //
                         break;
                 }
+                //barrotes solo de la base para el montacargas
+                if(width <= MedidaBarrote120)
+                {
+                    if (width <= (MedidaBarrote120 / 3))
+                    {
+                        barrote120 = 1;
+                    }
+                    else
+                    {
+                        if (width <= (MedidaBarrote120 / 2))
+                        {
+                            barrote120 = 2;
+                        }
+                        else
+                        {
+                            barrote120 = 3;
+                        }
+                    }
+                }
+                else
+                {
+                    barrote144 = 3;
+                }
+
+                Console.WriteLine("Barrote del 120: " + barrote120);
+                Console.WriteLine("Tabla del 96: " + tabla96);
             }
 
             //using (MaderaContext db = new MaderaContext())
@@ -120,7 +146,7 @@ namespace MaderaConsola
             //        Convert.ToDouble(item.SectW);
             //    }
             //}
-            calculoCrates(129.6, 32, 1);
+            calculoCrates(10, 10, 1);
             Console.ReadKey();
         }
     }
