@@ -53,9 +53,10 @@ namespace MaderaConsola
             //Departamentos con órdenes de aluminio
             if(dept == "J15" || dept == "J07")
             {
-                //Calcular las cantidadad de tablas puestas en el ancho del crate 
+                //Calcular las cantidadad de tablas puestas en el ancho del crate. 1
                 tabla96 = Convert.ToInt16(decimal.Round(Convert.ToDecimal(anchoCrate / anchoTabla96), 0)) + tablasPorDefecto;
 
+                //División de las tablas para saber si van completas o partidas. 2
                 if (largoCrate <= (MedidaTabla96 / 6))
                 {
                     tabla96 = tabla96 / 6;
@@ -92,7 +93,7 @@ namespace MaderaConsola
                         }
                     }
                 }
-                //barrotes de la base para el montacargas más soportes de lo alto de lo ancho
+                //Barrotes para la base más soportes de lo alto de lo ancho. 3
                 if (anchoCrate <= MedidaBarrote120)
                 {
                     if (anchoCrate <= (MedidaBarrote120 / 3))
@@ -105,20 +106,22 @@ namespace MaderaConsola
                         if (anchoCrate <= (MedidaBarrote120 / 2))
                         {
                             barrote120 = barrote120 + 2;
-                            barrote96 = barrote96 + 1;
+                            barrote96 = barrote96 + 3;
                         }
                         else
                         {
                             barrote120 = barrote120 + 3;
-                            barrote96 = barrote96 + 2;
+                            //Barrotes para lo alto del ancho más soportes para que no se mueva. 4
+                            barrote96 = barrote96 + 5;
                         }
                     }
                 }
                 else
                 {
                     barrote144 = 5;
+                    barrote96 = barrote96 + 3;
                 }
-                //barrotes a los lados del ancho
+                //Barrotes a los verticales de los lados del ancho. 5
                 if (altoOrden <= (MedidaBarrote120 / 3))
                 {
                     barrote96 = barrote96 + 1;
@@ -134,6 +137,7 @@ namespace MaderaConsola
                     else
                     {
                         barrote96 = barrote96 + 6;
+                        //Tablas en diagonal. 6
                         tabla96 = tabla96 + 6;
                     }
                 }
