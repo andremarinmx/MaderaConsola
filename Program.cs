@@ -15,7 +15,7 @@ namespace MaderaConsola
             int MedidaBarrote96 = 96;
             int MedidaBarrote120 = 120;
 
-            //Inicializacion de las madera utilizada
+            //Inicialización de las madera utilizada
             int tabla96 = 0;
             int barrote144 = 0;
             int barrote120 = 0;
@@ -25,8 +25,8 @@ namespace MaderaConsola
             double anchoTabla96 = 6.1;
             int tablasPorDefecto = 5;
 
-
-            double anchoOrden = 0; //Ancho de la pieza
+            double altoOrden = 1000;  //Alto de la pieza VALOR POR MIENTRAS
+            double anchoOrden = 1000; //Ancho de la pieza VALOR POR MIENTRAS
 
             //Seleccionar dept
             string dept;
@@ -36,8 +36,8 @@ namespace MaderaConsola
 
             //Variables ancho y largo del palet individual de la orden con ciertas piezas
             double grosorCrate; //Se calcula con la sumatoria del grosor de las piezas puestas en el crate y que no supere 48 pulgadas
-            double anchoCrate; //Es el width de la pieza más grande
-            double altoCrate;  //Es el heigth de la pieza más grande
+            double anchoCrate; //Se encuentra el valor más grande entre el w y h 
+            double altoCrate;  //Al obtener el valor más grande, si se encuentra en el w entonces se busca el valor más grande del h, sino viceversa
 
             Console.WriteLine("Ingrese dept");
             dept = Console.ReadLine();
@@ -49,6 +49,8 @@ namespace MaderaConsola
             altoCrate = Convert.ToDouble(Console.ReadLine());
             Console.WriteLine("Ingrese la cantidad de crates");
             cantidadCrates = Convert.ToInt16(Console.ReadLine());
+            Console.WriteLine("¿Es de acero? SI/NO ");
+            string acero = Console.ReadLine();
 
             //Departamentos con órdenes de aluminio
             if (dept == "J15" || dept == "J07")
@@ -105,14 +107,14 @@ namespace MaderaConsola
                     {
                         if (anchoCrate <= (MedidaBarrote120 / 2))
                         {
-                            barrote120 = barrote120 + 2;
-                            barrote96 = barrote96 + 3;
+                            barrote120 = barrote120 + 3;
+                            barrote96 = barrote96 + 2;
                         }
                         else
                         {
-                            barrote120 = barrote120 + 3;
+                            barrote120 = barrote120 + 5;
                             //Barrotes para lo alto del ancho más soportes para que no se mueva. 4
-                            barrote96 = barrote96 + 5;
+                            barrote96 = barrote96 + 3;
                         }
                     }
                 }
@@ -207,21 +209,21 @@ namespace MaderaConsola
                             {
                                 if (anchoCrate <= (MedidaBarrote120 / 2))
                                 {
-                                    barrote120 = barrote120 + 2;
-                                    barrote96 = barrote96 + 3;
+                                    barrote120 = barrote120 + 3;
+                                    barrote96 = barrote96 + 2;
                                 }
                                 else
                                 {
-                                    barrote120 = barrote120 + 3;
+                                    barrote120 = barrote120 + 5;
                                     //Barrotes para lo alto del ancho más soportes para que no se mueva. 4
-                                    barrote96 = barrote96 + 5;
+                                    barrote96 = barrote96 + 3;
                                 }
                             }
                         }
                         else
                         {
                             barrote144 = 5;
-                            barrote96 = barrote96 + 2;
+                            barrote96 = barrote96 + 3;
                         }
                         //Barrotes a los verticales de los lados del ancho. 5
                         if (altoCrate <= (MedidaBarrote120 / 3))
@@ -249,7 +251,7 @@ namespace MaderaConsola
                         tabla96 = Convert.ToInt16(decimal.Round(Convert.ToDecimal(anchoCrate / anchoTabla96), 0)) + tablasPorDefecto;
 
                         //Órdenes pequeñas: medir primero las piezas y después ingresar el ancho, largo y alto de la orden ya acomodadas
-                        if (altoCrate <= 20 || anchoOrden <= 20)
+                        if (altoOrden <= 20 || anchoOrden <= 20)
                         {
                             //División de las tablas para saber si van completas o partidas. 2
                             if (grosorCrate <= (MedidaBarrote96 / 7))
@@ -317,10 +319,10 @@ namespace MaderaConsola
                                         barrote96 = barrote96 + 3;
                                     }
                                 }
-                            }
+                            }//En ordenes pequeñas, solo se construye el la base
                             else
                             {
-                                barrote144 = 5;
+                                barrote144 = 3;
                                 barrote96 = barrote96 + 1;
                             }
                         }
@@ -371,51 +373,105 @@ namespace MaderaConsola
                                 }
                             }
                             //Barrotes para la base más soportes de lo alto de lo ancho. 3
-                            if (anchoCrate <= MedidaBarrote120)
+                            if (acero == "NO")
                             {
-                                if (anchoCrate <= (MedidaBarrote120 / 3))
+
+                                if (anchoCrate <= MedidaBarrote120)
                                 {
-                                    barrote120 = barrote120 + 1;
-                                    barrote96 = barrote96 + 1;
-                                }
-                                else
-                                {
-                                    if (anchoCrate <= (MedidaBarrote120 / 2))
+                                    if (anchoCrate <= (MedidaBarrote120 / 3))
                                     {
-                                        barrote120 = barrote120 + 2;
-                                        barrote96 = barrote96 + 2;
+                                        barrote120 = barrote120 + 1;
+                                        barrote96 = barrote96 + 1;
                                     }
                                     else
                                     {
-                                        barrote120 = barrote120 + 3;
-                                        //Barrotes para lo alto del ancho más soportes para que no se mueva. 4
+                                        if (anchoCrate <= (MedidaBarrote120 / 2))
+                                        {
+                                            barrote120 = barrote120 + 2;
+                                            barrote96 = barrote96 + 2;
+                                        }
+                                        else
+                                        {
+                                            barrote120 = barrote120 + 3;
+                                            //Barrotes para lo alto del ancho más soportes para que no se mueva. 4
+                                            barrote96 = barrote96 + 3;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    barrote144 = 3;
+                                    barrote96 = barrote96 + 3;
+                                }
+                                //Barrotes a los verticales de los lados del ancho. 5
+                                if (altoCrate <= (MedidaBarrote120 / 3))
+                                {
+                                    barrote96 = barrote96 + 1;
+                                    tabla96 = tabla96 + 4;
+                                }
+                                else
+                                {
+                                    if (altoCrate <= (MedidaBarrote120 / 2))
+                                    {
                                         barrote96 = barrote96 + 3;
+                                        tabla96 = tabla96 + 6;
+                                    }
+                                    else
+                                    {
+                                        barrote96 = barrote96 + 6;
+                                        //Tablas en diagonal. 6
+                                        tabla96 = tabla96 + 16; //Doble diagonal
                                     }
                                 }
                             }
                             else
                             {
-                                barrote144 = 5;
-                                barrote96 = barrote96 + 1;
-                            }
-                            //Barrotes a los verticales de los lados del ancho. 5
-                            if (altoCrate <= (MedidaBarrote120 / 3))
-                            {
-                                barrote96 = barrote96 + 1;
-                                tabla96 = tabla96 + 4;
-                            }
-                            else
-                            {
-                                if (altoCrate <= (MedidaBarrote120 / 2))
+                                if (anchoCrate <= MedidaBarrote120)
                                 {
-                                    barrote96 = barrote96 + 3;
-                                    tabla96 = tabla96 + 6;
+                                    if (anchoCrate <= (MedidaBarrote120 / 3))
+                                    {
+                                        barrote120 = barrote120 + 1;
+                                        barrote96 = barrote96 + 1;
+                                    }
+                                    else
+                                    {
+                                        if (anchoCrate <= (MedidaBarrote120 / 2))
+                                        {
+                                            barrote120 = barrote120 + 2;
+                                            barrote96 = barrote96 + 2;
+                                        }
+                                        else
+                                        {
+                                            barrote120 = barrote120 + 5;
+                                            //Barrotes para lo alto del ancho más soportes para que no se mueva. 4
+                                            barrote96 = barrote96 + 3;
+                                        }
+                                    }
                                 }
                                 else
                                 {
-                                    barrote96 = barrote96 + 6;
-                                    //Tablas en diagonal. 6
-                                    tabla96 = tabla96 + 12;
+                                    barrote144 = 5;
+                                    barrote96 = barrote96 + 1;
+                                }
+                                //Barrotes a los verticales de los lados del ancho. 5
+                                if (altoCrate <= (MedidaBarrote120 / 3))
+                                {
+                                    barrote96 = barrote96 + 1;
+                                    tabla96 = tabla96 + 4;
+                                }
+                                else
+                                {
+                                    if (altoCrate <= (MedidaBarrote120 / 2))
+                                    {
+                                        barrote96 = barrote96 + 3;
+                                        tabla96 = tabla96 + 6;
+                                    }
+                                    else
+                                    {
+                                        barrote96 = barrote96 + 6;
+                                        //Tablas en diagonal. 6
+                                        tabla96 = tabla96 + 12;
+                                    }
                                 }
                             }
                         }
