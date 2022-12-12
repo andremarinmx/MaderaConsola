@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MaderaConsola
+namespace MaderaConsola.Properties
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MaderaContext : DbContext
+    public partial class AndreTestContext : DbContext
     {
-        public MaderaContext()
-            : base("name=MaderaContext")
+        public AndreTestContext()
+            : base("name=AndreTestContext")
         {
         }
     
@@ -25,6 +25,6 @@ namespace MaderaConsola
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<OpenSale> OpenSales { get; set; }
+        public virtual DbSet<OpenSalesOrder> OpenSalesOrders { get; set; }
     }
 }
