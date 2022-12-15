@@ -57,6 +57,9 @@ namespace MaderaConsola
                 List<double> widthList = new List<double>();
                 List<double> heightList = new List<double>();
 
+                ////Lista de dept para las órdenes combinadas
+                List<string> deptList = new List<string>();
+
                 //Máximos de heigth y width
                 double maxHeight = 0;
                 double maxWidth = 0;
@@ -78,7 +81,6 @@ namespace MaderaConsola
                 int tabla96Total = 0;
 
                 //----------------------------------------CÁLCULO DE LOS CRATES, HIGHT Y WIDHT----------------------------------------------------//
-
                 //Ingresar orden
                 Console.WriteLine("Ingrese la orden a calcular");
                 orden = Console.ReadLine();
@@ -94,6 +96,7 @@ namespace MaderaConsola
                     widthList.Add(Convert.ToDouble(item.Width));
                     //Guardar en una lista los height de las lineas
                     heightList.Add(Convert.ToDouble(item.Height));
+                    deptList.Add(item.Depto);
                 }
                 //Encontrar los valores más grandes los cuales van a determinar el anchoCrate de los crates
                 maxHeight = heightList.Max();
@@ -293,7 +296,7 @@ namespace MaderaConsola
 
                 //----------------------------------------CÁLCULO DE LA MADERA PARA CRATE NORMAL----------------------------------------------------//
                 //Departamentos con órdenes de aluminio
-                if (dept == "J15" || dept == "J07")
+                if (deptList.Contains("J15") || deptList.Contains("J07"))
                 {
                     //Calcular las cantidadad de tablas puestas en el ancho del crate. 1
                     tabla96 = Convert.ToInt16(decimal.Round(Convert.ToDecimal(anchoCrate / anchoTabla96), 0)) + tablasPorDefecto;
@@ -389,7 +392,7 @@ namespace MaderaConsola
                     switch (dept)
                     {
                         //Órdenes de acero
-                        case "J19":
+                        case string d when deptList.Contains("J19"):
                             //Calcular las cantidadad de tablas puestas en el ancho del crate. 1
                             barrote96 = Convert.ToInt16(decimal.Round(Convert.ToDecimal(anchoCrate / anchoTabla96), 0)) + tablasPorDefecto;
 
@@ -486,7 +489,7 @@ namespace MaderaConsola
                                 }
                             }
                             break;
-                        case "J09":
+                        case string d when deptList.Contains("J09"):
                             //Calcular las cantidadad de tablas puestas en el ancho del crate. 1
                             tabla96 = Convert.ToInt16(decimal.Round(Convert.ToDecimal(anchoCrate / anchoTabla96), 0)) + tablasPorDefecto;
                             //División de las tablas para saber si van completas o partidas. 2
@@ -695,7 +698,7 @@ namespace MaderaConsola
                 if (cantidadCratesDiferentes >= 1)
                 {
                     //Departamentos con órdenes de aluminio
-                    if (dept == "J15" || dept == "J07")
+                    if (deptList.Contains("J15") || deptList.Contains("J07"))
                     {
                         //Calcular las cantidadad de tablas puestas en el ancho del crate. 1
                         tabla96Diferente = Convert.ToInt16(decimal.Round(Convert.ToDecimal(anchoCrate / anchoTabla96), 0)) + tablasPorDefecto;
@@ -806,7 +809,7 @@ namespace MaderaConsola
                         switch (dept)
                         {
                             //Órdenes de acero
-                            case "J19":
+                            case string d when deptList.Contains("J19"):
                                 //Calcular las cantidadad de tablas puestas en el ancho del crate. 1
                                 tabla96Diferente = Convert.ToInt16(decimal.Round(Convert.ToDecimal(anchoCrate / anchoTabla96), 0)) + tablasPorDefecto;
 
@@ -910,7 +913,7 @@ namespace MaderaConsola
                                     }
                                 }
                                 break;
-                            case "J09":
+                            case string d when deptList.Contains("J09"):
                                 //Calcular las cantidadad de tablas puestas en el ancho del crate. 1
                                 tabla96Diferente = Convert.ToInt16(decimal.Round(Convert.ToDecimal(anchoCrate / anchoTabla96), 0)) + tablasPorDefecto;
                                 //División de las tablas para saber si van completas o partidas. 2
