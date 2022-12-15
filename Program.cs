@@ -24,6 +24,12 @@ namespace MaderaConsola
                 int barrote120 = 0;
                 int barrote96 = 0;
 
+                //Inicialización de las madera utilizada
+                int tarima48x48 = 0;
+                int tarima40x48 = 0;
+                int tarima32x32 = 0;
+                int tarima34x56 = 0;
+
                 //Madera crates diferente
                 int barrote120Diferente = 0;
                 int barrote96Diferente = 0;
@@ -670,16 +676,22 @@ namespace MaderaConsola
                             }
                             break;
                         case "J01":
-                            Console.WriteLine("Departamento requiere tarimas");
+                            tarima48x48 = piezas / 25 + (piezas % 25 > 0 ? 1 : 0);
+                            cantidadCrates = 0;
+                            cantidadCratesDiferentes = 0;
                             break;
-                        case "J02":
-                            Console.WriteLine("Departamento requiere tarimas");
+                        case "J03":
+                            tarima32x32 = piezas / 25 + (piezas % 25 > 0 ? 1 : 0);
+                            cantidadCrates = 0;
+                            cantidadCratesDiferentes = 0;
                             break;
                         case "J04":
                             Console.WriteLine("Departamento requiere tarimas");
                             break;
                         case "J06":
-                            Console.WriteLine("Departamento requiere tarimas");
+                            tarima48x48 = piezas / 25 + (piezas % 25 > 0 ? 1 : 0);
+                            cantidadCrates = 0;
+                            cantidadCratesDiferentes = 0;
                             break;
                         case "EZB":
                             Console.WriteLine("Departamento requiere tarimas");
@@ -1093,27 +1105,6 @@ namespace MaderaConsola
                                     }
                                 }
                                 break;
-                            case "J01":
-                                Console.WriteLine("Departamento requiere tarimas");
-                                break;
-                            case "J02":
-                                Console.WriteLine("Departamento requiere tarimas");
-                                break;
-                            case "J04":
-                                Console.WriteLine("Departamento requiere tarimas");
-                                break;
-                            case "J06":
-                                Console.WriteLine("Departamento requiere tarimas");
-                                break;
-                            case "EZB":
-                                Console.WriteLine("Departamento requiere tarimas");
-                                break;
-                            case "C04":
-                                Console.WriteLine("Departamento requiere tarimas");
-                                break;
-                            default:
-                                Console.WriteLine("Departamento no encontrado");
-                                break;
                         }
                     }
                 }
@@ -1168,6 +1159,9 @@ namespace MaderaConsola
                 Console.WriteLine("Barrote del 120 diferente total: " + barrote120Total);
                 Console.WriteLine("Barrote del 96 diferente total:  " + barrote96Total);
                 Console.WriteLine("Tabla del 96 diferente total:    " + tabla96Total);
+                Console.WriteLine("---------------------------------------");
+                Console.WriteLine("Tarimas de 48x48: " + tarima48x48);
+
                 Console.ReadKey();
             }
         }
