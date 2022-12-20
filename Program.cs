@@ -1181,6 +1181,8 @@ namespace MaderaConsola
                 tabla96Total = tabla96 + tabla96Diferente;
 
                 Console.WriteLine("---------------------------------------");
+                Console.WriteLine("Cantidad de piezas: " + piezas);
+                Console.WriteLine("---------------------------------------");
                 Console.WriteLine("Max W: " + maxWidth);
                 Console.WriteLine("Max H: " + maxHeight);
                 Console.WriteLine("Ancho: " + anchoCrate);
@@ -1209,6 +1211,23 @@ namespace MaderaConsola
                 Console.WriteLine("Tarimas de 34x56: " + tarima34x56);
                 Console.WriteLine("Tarimas de 32x32: " + tarima32x32);
                 Console.WriteLine("Tarimas de 40x48: " + tarima40x48);
+
+                //---------------------------Guardar en la base de datos la madera utilizada por la orden---------------------------
+                DateTime dateTime = DateTime.UtcNow.Date;
+                WoodInOrder wood = new WoodInOrder();
+                wood.Orden = orden;
+                wood.Table96 = tabla96Total;
+                wood.Bar120 = barrote120Total;
+                wood.Bar144 = barrote144Total;
+                wood.Bar96 = barrote96Total;
+                wood.Crates = cantidadCrates + cantidadCratesDiferentes;
+                wood.Pallet32X32 = tarima32x32;
+                wood.Pallet34X56 = tarima34x56;
+                wood.Pallet40x48 = tarima40x48;
+                wood.Pallet48x48 = tarima48x48;
+                wood.AssignmentDate = dateTime.ToString("dd/MM/yyyy");
+                db.WoodInOrders.Add(wood);
+                db.SaveChanges();
 
                 Console.ReadKey();
             }

@@ -26,5 +26,6 @@ namespace MaderaConsola.Properties
         }
     
         public virtual DbSet<OpenSalesOrder> OpenSalesOrders { get; set; }
+        public virtual DbSet<WoodInOrder> WoodInOrders { get; set; }
     }
 }
