@@ -63,7 +63,7 @@ namespace MaderaConsola
                 List<double> widthList = new List<double>();
                 List<double> heightList = new List<double>();
 
-                ////Lista de dept para las órdenes combinadas
+                //Lista de dept para las órdenes combinadas
                 List<string> deptList = new List<string>();
 
                 //Máximos de heigth y width
@@ -675,32 +675,77 @@ namespace MaderaConsola
                                 }
                             }
                             break;
+                        //Depts J01, J02, J03, J04, EZB Y C04 se utilizan los mismos pallets
                         case "J01":
-                            tarima48x48 = piezas / 25 + (piezas % 25 > 0 ? 1 : 0);
-                            cantidadCrates = 0;
-                            cantidadCratesDiferentes = 0;
-                            break;
+                        case "J02":
                         case "J03":
-                            tarima32x32 = piezas / 25 + (piezas % 25 > 0 ? 1 : 0);
-                            cantidadCrates = 0;
-                            cantidadCratesDiferentes = 0;
-                            break;
                         case "J04":
-                            Console.WriteLine("Departamento requiere tarimas");
+                        case "EZB":
+                        case "C04":
+                        case "496":
+                            if (maxWidth <= 25 )
+                            {
+                                //En este pallet caben 250 piezas máximo
+                                tarima32x32 = piezas / 250 + (piezas % 250 > 0 ? 1 : 0);
+                                cantidadCrates = 0;
+                                cantidadCratesDiferentes = 0;
+                            }
+                            else
+                            {
+                                if (maxWidth <= 35)
+                                {
+                                    //En este pallet caben 200 piezas máximo
+                                    tarima40x48 = piezas / 200 + (piezas % 200 > 0 ? 1 : 0);
+                                    cantidadCrates = 0;
+                                    cantidadCratesDiferentes = 0;
+                                }
+                                else
+                                {
+                                    if (maxWidth <= 45)
+                                    {
+                                        //En este pallet caben 150 piezas máximo
+                                        tarima48x48 = piezas / 150 + (piezas % 150 > 0 ? 1 : 0);
+                                        cantidadCrates = 0;
+                                        cantidadCratesDiferentes = 0;
+                                    }
+                                    else
+                                    {
+                                        if (maxWidth <= 55)
+                                        {
+                                            //En este pallet caben 100 piezas máximo
+                                            tarima34x56 = piezas / 100 + (piezas % 100 > 0 ? 1 : 0);
+                                            cantidadCrates = 0;
+                                            cantidadCratesDiferentes = 0;
+                                        }
+                                        else
+                                        {
+                                            //En este pallet por default
+                                            tarima40x48 = piezas / 250 + (piezas % 250 > 0 ? 1 : 0);
+                                            cantidadCrates = 0;
+                                            cantidadCratesDiferentes = 0;
+                                        }
+                                    }
+                                }
+                            }
                             break;
                         case "J06":
-                            tarima48x48 = piezas / 25 + (piezas % 25 > 0 ? 1 : 0);
-                            cantidadCrates = 0;
-                            cantidadCratesDiferentes = 0;
-                            break;
-                        case "EZB":
-                            Console.WriteLine("Departamento requiere tarimas");
-                            break;
-                        case "C04":
-                            Console.WriteLine("Departamento requiere tarimas");
+                            if(maxWidth >= 48 )
+                            {
+                                tarima40x48 = piezas / 150 + (piezas % 150 > 0 ? 1 : 0);
+                                cantidadCrates = 0;
+                                cantidadCratesDiferentes = 0;
+                            }
+                            else
+                            {
+                                tarima34x56 = piezas / 150 + (piezas % 150 > 0 ? 1 : 0);
+                                cantidadCrates = 0;
+                                cantidadCratesDiferentes = 0;
+                            }
                             break;
                         default:
                             Console.WriteLine("Departamento no encontrado");
+                            cantidadCrates = 0;
+                            cantidadCratesDiferentes = 0;
                             break;
                     }
                 }
@@ -1155,12 +1200,15 @@ namespace MaderaConsola
                 Console.WriteLine("Tabla del 96 diferente: " + tabla96Diferente);
                 Console.WriteLine("Cantidad de Crates Diferentes: " + cantidadCratesDiferentes);
                 Console.WriteLine("---------------------------------------");
-                Console.WriteLine("Barrote del 144 diferente total: " + barrote144Total);
-                Console.WriteLine("Barrote del 120 diferente total: " + barrote120Total);
-                Console.WriteLine("Barrote del 96 diferente total:  " + barrote96Total);
-                Console.WriteLine("Tabla del 96 diferente total:    " + tabla96Total);
+                Console.WriteLine("Barrote del 144 total: " + barrote144Total);
+                Console.WriteLine("Barrote del 120 total: " + barrote120Total);
+                Console.WriteLine("Barrote del 96 total:  " + barrote96Total);
+                Console.WriteLine("Tabla del 96 total:    " + tabla96Total);
                 Console.WriteLine("---------------------------------------");
                 Console.WriteLine("Tarimas de 48x48: " + tarima48x48);
+                Console.WriteLine("Tarimas de 34x56: " + tarima34x56);
+                Console.WriteLine("Tarimas de 32x32: " + tarima32x32);
+                Console.WriteLine("Tarimas de 40x48: " + tarima40x48);
 
                 Console.ReadKey();
             }
