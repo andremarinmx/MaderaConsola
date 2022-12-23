@@ -102,27 +102,7 @@ namespace MaderaConsola
             //Ingresar orden
             Console.WriteLine("Ingrese la orden a calcular");
             orden = Console.ReadLine();
-
-            //iDB2DataReader dataOrder = macPac.OpenSalesQry(orden);
-            //Orders order = new Orders();
-
-            //if (dataOrder.HasRows)
-            //{
-            //    while (dataOrder.Read())
-            //    {
-            //order.OrderNumber = dataOrder[0].ToString();
-            //order.Line = Convert.ToInt16(dataOrder[1]);
-            //order.Depto = dataOrder[2].ToString();
-            //order.Width = Convert.ToDouble(dataOrder[3]);
-            //order.Height = Convert.ToDouble(dataOrder[4]);
-            //order.Balance = Convert.ToInt16(dataOrder[5]);
-            //    }
-            //}
-            //else
-            //{
-            //    Console.WriteLine("No existe orden");
-            //}
-
+            //Obtener las información de la orden desde MacPac
             DataTable dataOrder = macPac.OpenSalesQry(orden);
             // Crear una lista de objetos Orders
             List<Orders> ordersList = new List<Orders>();
@@ -151,8 +131,7 @@ namespace MaderaConsola
                 // Orden no existe
             }
 
-            //var ordersList = db.OpenSalesOrders.Where(x => x.Orden == orden).ToList();
-            dept = ordersList[2].Depto; //Obtener departamento
+            dept = ordersList[0].Depto; //Obtener departamento
 
             foreach (var item in ordersList)
             {
@@ -271,6 +250,7 @@ namespace MaderaConsola
                     {
                         //Se tiene mas de 8 piezas y son un numero tal de piezas que no sea divisor de 8 entonces se asigna grosor al diferente crate
                         grosorCrate = 45;
+                        cantidadCratesDiferentes = 1;
                         //Se colocan las piezas pegadas ya que no tienen ningun accesorio, maximo caben 8
                         cantidadCrates = Convert.ToInt16(decimal.Round(Convert.ToDecimal(piezas / 8), 0));
                         //Cálculo de las cantidades de los crates de 45 más la cantidad de crates especiales y su grosor
@@ -303,7 +283,7 @@ namespace MaderaConsola
                                 break;
                         }
                         // Si se entra a cualquier caso excepto al default, entonces hay que calcular la cantidad de crates diferentes
-                        if (piezas % 8 != 0)
+                        if (piezas % 8 == 0)
                         {
                             cantidadCratesDiferentes = piezas / 8;
                             grosorCrateDiferente = 0;
@@ -718,7 +698,7 @@ namespace MaderaConsola
             Console.WriteLine("Tabla del 96 diferente: " + tabla96Diferente);
             Console.WriteLine("Cantidad de Crates Diferentes: " + cantidadCratesDiferentes);
             Console.WriteLine("---------------------------------------");
-            Console.WriteLine("Barrote del 144 total: " + barrote144Total);
+            Console.WriteLine("Barrote del 144 total: " + barrote144Total );
             Console.WriteLine("Barrote del 120 total: " + barrote120Total);
             Console.WriteLine("Barrote del 96 total:  " + barrote96Total);
             Console.WriteLine("Tabla del 96 total:    " + tabla96Total);

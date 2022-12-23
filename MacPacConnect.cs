@@ -31,21 +31,8 @@ namespace MaderaConsola
         }
         public DataTable OpenSalesQry(string orderNumber)
         {
+            //Construccion del query para obtener el Order, Line, Depto, DEPTO, WIDTH, HEIGHT, BALANCE
             string Qry = "SELECT SLONO AS ORDER, SLLNNO AS LINE, ACBAC AS DEPTO, WIDTH, HEIGHT, BALANCE FROM AADAT12.OPENSOPF3 WHERE SLONO = '" + orderNumber + "' ";
-
-            //try
-            //{
-            //    iDB2Command command = conAS400.CreateCommand();
-            //    command.CommandText = Qry;
-            //    iDB2DataReader readerIBM = command.ExecuteReader();
-            //    conAS400.Close();
-            //    return dataTable;
-            //}
-            //catch
-            //{
-            //    return dataTable;
-            //}
-            
             try
             {
                 iDB2Command command = conAS400.CreateCommand();
