@@ -115,8 +115,8 @@ namespace MaderaConsola
                     // Crea un nuevo objeto Orders y asigna los valores de las columnas del DataTable a sus propiedades
                     Orders order = new Orders
                     {
-                        Depto = row[2].ToString(), //SLLNNO
-                        OrderNumber = row[0].ToString(), //ACBAC
+                        Depto = row[2].ToString(), //ACBAC
+                        OrderNumber = row[0].ToString(), //SLLNNO
                         Line = Convert.ToInt32(row["Line"]),
                         Width = Convert.ToDouble(row["Width"]),
                         Height = Convert.ToDouble(row["Height"]),
@@ -726,6 +726,27 @@ namespace MaderaConsola
                 wood.AssignmentDate = dateTime.ToString("dd/MM/yyyy");
                 db.WoodInOrders.Add(wood);
                 db.SaveChanges();
+                //------------------Guardar datos en formato MacPac-----------------------//
+                WoodOrderLinesMacPac woodMacPac = new WoodOrderLinesMacPac();
+                //Dividir las la madera calculada entre las lineas de la orden
+                decimal barrote144Lineas = (decimal)barrote144Total / ordersList.Count();
+                decimal barrote120Lineas = (decimal)barrote120Total / ordersList.Count();
+                decimal barrote96Lineas = (decimal)barrote96Total / ordersList.Count();
+                decimal tabla96Lineas = (decimal)tabla96Total / ordersList.Count();
+
+                for (int i = 1; i <= ordersList.Count(); i++)
+                {
+                    woodMacPac.Line = ordersList[i-1].Line;
+                    woodMacPac.Orden = ordersList[0].OrderNumber;
+                    //Dividir entre los barrores entre el balance de la misma linea para que MacPac posteriormente haga la multiplicacion
+                    woodMacPac.Bar144 = Convert.ToDouble(barrote144Lineas / ordersList[i-1].Balance);
+                    woodMacPac.Bar120 = Convert.ToDouble(barrote120Lineas / ordersList[i-1].Balance);
+                    woodMacPac.Bar96 = Convert.ToDouble(barrote96Lineas / ordersList[i-1].Balance);
+                    woodMacPac.Table96 = Convert.ToDouble(tabla96Lineas / ordersList[i-1].Balance);
+                    db.WoodOrderLinesMacPacs.Add(woodMacPac);
+                    db.SaveChanges();
+                }
+
                 Console.ReadKey();
             }
         }
