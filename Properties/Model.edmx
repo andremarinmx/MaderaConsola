@@ -38,27 +38,30 @@
           <Property Name="RegistrationDate" Type="varchar" MaxLength="255" />
           <Property Name="AssignmentDate" Type="varchar" MaxLength="255" />
         </EntityType>
-        <EntityType Name="WoodOrderLinesMacPac">
+        <EntityType Name="WoodOrdenLinesMacPac">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Orden" Type="varchar" MaxLength="255" />
+          <Property Name="Orden" Type="varchar" MaxLength="30" />
           <Property Name="Line" Type="int" />
-          <Property Name="MO" Type="varchar" MaxLength="255" />
+          <Property Name="MO" Type="varchar" MaxLength="30" />
           <Property Name="Table96" Type="float" />
           <Property Name="Bar144" Type="float" />
           <Property Name="Bar120" Type="float" />
           <Property Name="Bar96" Type="float" />
-          <Property Name="Pallet48x48" Type="int" />
-          <Property Name="Pallet40x48" Type="int" />
-          <Property Name="Pallet32X32" Type="int" />
-          <Property Name="Pallet34X56" Type="int" />
+          <Property Name="Crates" Type="float" />
+          <Property Name="Pallet48x48" Type="float" />
+          <Property Name="Pallet40x48" Type="float" />
+          <Property Name="Pallet32X32" Type="float" />
+          <Property Name="Pallet34X56" Type="float" />
+          <Property Name="RegistrationDate" Type="varchar" MaxLength="30" />
+          <Property Name="AssignmentDate" Type="varchar" MaxLength="30" />
         </EntityType>
         <EntityContainer Name="AndreTestModelStoreContainer">
           <EntitySet Name="OpenSalesOrders" EntityType="Self.OpenSalesOrders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WoodInOrders" EntityType="Self.WoodInOrders" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="WoodOrderLinesMacPac" EntityType="Self.WoodOrderLinesMacPac" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WoodOrdenLinesMacPac" EntityType="Self.WoodOrdenLinesMacPac" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -82,7 +85,7 @@
         <EntityContainer Name="AndreTestContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="OpenSalesOrders" EntityType="Self.OpenSalesOrder" />
           <EntitySet Name="WoodInOrders" EntityType="AndreTestModel.WoodInOrder" />
-          <EntitySet Name="WoodOrderLinesMacPacs" EntityType="AndreTestModel.WoodOrderLinesMacPac" />
+          <EntitySet Name="WoodOrdenLinesMacPacs" EntityType="AndreTestModel.WoodOrdenLinesMacPac" />
         </EntityContainer>
         <EntityType Name="WoodInOrder">
           <Key>
@@ -102,22 +105,25 @@
           <Property Name="RegistrationDate" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="AssignmentDate" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="WoodOrderLinesMacPac">
+        <EntityType Name="WoodOrdenLinesMacPac">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Orden" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Orden" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Line" Type="Int32" />
-          <Property Name="MO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="Table96" Type="Double" />
           <Property Name="Bar144" Type="Double" />
           <Property Name="Bar120" Type="Double" />
           <Property Name="Bar96" Type="Double" />
-          <Property Name="Pallet48x48" Type="Int32" />
-          <Property Name="Pallet40x48" Type="Int32" />
-          <Property Name="Pallet32X32" Type="Int32" />
-          <Property Name="Pallet34X56" Type="Int32" />
+          <Property Name="Crates" Type="Double" />
+          <Property Name="Pallet48x48" Type="Double" />
+          <Property Name="Pallet40x48" Type="Double" />
+          <Property Name="Pallet32X32" Type="Double" />
+          <Property Name="Pallet34X56" Type="Double" />
+          <Property Name="RegistrationDate" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="AssignmentDate" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -160,13 +166,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="WoodOrderLinesMacPacs">
-            <EntityTypeMapping TypeName="AndreTestModel.WoodOrderLinesMacPac">
-              <MappingFragment StoreEntitySet="WoodOrderLinesMacPac">
+          <EntitySetMapping Name="WoodOrdenLinesMacPacs">
+            <EntityTypeMapping TypeName="AndreTestModel.WoodOrdenLinesMacPac">
+              <MappingFragment StoreEntitySet="WoodOrdenLinesMacPac">
+                <ScalarProperty Name="AssignmentDate" ColumnName="AssignmentDate" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
                 <ScalarProperty Name="Pallet34X56" ColumnName="Pallet34X56" />
                 <ScalarProperty Name="Pallet32X32" ColumnName="Pallet32X32" />
                 <ScalarProperty Name="Pallet40x48" ColumnName="Pallet40x48" />
                 <ScalarProperty Name="Pallet48x48" ColumnName="Pallet48x48" />
+                <ScalarProperty Name="Crates" ColumnName="Crates" />
                 <ScalarProperty Name="Bar96" ColumnName="Bar96" />
                 <ScalarProperty Name="Bar120" ColumnName="Bar120" />
                 <ScalarProperty Name="Bar144" ColumnName="Bar144" />

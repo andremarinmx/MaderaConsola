@@ -12,7 +12,7 @@ namespace MaderaConsola.Properties
     using System;
     using System.Collections.Generic;
     
-    public partial class WoodOrderLinesMacPac
+    public partial class WoodOrdenLinesMacPac
     {
         public int Id { get; set; }
         public string Orden { get; set; }
@@ -22,9 +22,12 @@ namespace MaderaConsola.Properties
         public Nullable<double> Bar144 { get; set; }
         public Nullable<double> Bar120 { get; set; }
         public Nullable<double> Bar96 { get; set; }
-        public Nullable<int> Pallet48x48 { get; set; }
-        public Nullable<int> Pallet40x48 { get; set; }
-        public Nullable<int> Pallet32X32 { get; set; }
-        public Nullable<int> Pallet34X56 { get; set; }
+        public Nullable<double> Crates { get; set; }
+        public Nullable<double> Pallet48x48 { get; set; }
+        public Nullable<double> Pallet40x48 { get; set; }
+        public Nullable<double> Pallet32X32 { get; set; }
+        public Nullable<double> Pallet34X56 { get; set; }
+        public string RegistrationDate { get; set; }
+        public string AssignmentDate { get; set; }
     }
 }

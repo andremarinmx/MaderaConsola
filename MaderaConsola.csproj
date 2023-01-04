@@ -79,7 +79,7 @@
     <Compile Include="Properties\WoodInOrder.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Properties\WoodOrderLinesMacPac.cs">
+    <Compile Include="Properties\WoodOrdenLinesMacPac.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
   </ItemGroup>
