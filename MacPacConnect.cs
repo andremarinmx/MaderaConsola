@@ -32,7 +32,13 @@ namespace MaderaConsola
         public DataTable OpenSalesQry(string orderNumber)
         {
             //Construccion del query para obtener el Order, Line, Depto, DEPTO, WIDTH, HEIGHT, BALANCE
-            string Qry = "SELECT SLONO AS ORDER, SLLNNO AS LINE, ACBAC AS DEPTO, WIDTH, HEIGHT, BALANCE FROM AADAT12.OPENSOPF3 WHERE SLONO = '" + orderNumber + "' ";
+            string Qry = "SELECT AADAT12.EC200M.SPONO AS ORDER, AADAT12.EC200M.SPLNNO AS LINE, MIN(AADAT12.EC200M.SLMONO) AS MO, " + 
+                "AADAT12.OPENSOPF3.ACBAC AS DEPTO, AADAT12.OPENSOPF3.WIDTH, AADAT12.OPENSOPF3.HEIGHT, AADAT12.OPENSOPF3.BALANCE " + 
+                "FROM AADAT12.EC200M INNER JOIN AADAT12.OPENSOPF3 " + 
+                "ON AADAT12.EC200M.SPONO = AADAT12.OPENSOPF3.SLONO AND AADAT12.EC200M.SPLNNO = AADAT12.OPENSOPF3.SLLNNO " +
+                "WHERE AADAT12.EC200M.SPONO = '" + orderNumber + "' " + 
+                "GROUP BY AADAT12.EC200M.SPONO, AADAT12.EC200M.SPLNNO, " + "" +
+                "AADAT12.OPENSOPF3.ACBAC, AADAT12.OPENSOPF3.WIDTH, AADAT12.OPENSOPF3.HEIGHT, AADAT12.OPENSOPF3.BALANCE ORDER BY AADAT12.EC200M.SPLNNO";
             try
             {
                 iDB2Command command = conAS400.CreateCommand();
@@ -43,8 +49,10 @@ namespace MaderaConsola
                 conAS400.Close();
                 return dt;
             }
-            catch
+            catch (iDB2Exception ex)
             {
+                Console.WriteLine("Se produjo un error: " + ex.Message);
+                Console.WriteLine("Detalles del error: " + ex.StackTrace);
                 return dt;
             }
         }
