@@ -19,6 +19,7 @@ namespace MaderaConsola
             public double Width { get; set; }
             public double Height { get; set; }
             public int Balance { get; set; }
+            public string MO { get; set; }
         }
         static void Main(string[] args)
         {
@@ -115,12 +116,13 @@ namespace MaderaConsola
                     // Crea un nuevo objeto Orders y asigna los valores de las columnas del DataTable a sus propiedades
                     Orders order = new Orders
                     {
-                        Depto = row[2].ToString(), //ACBAC
-                        OrderNumber = row[0].ToString(), //SLLNNO
+                        Depto = row["Depto"].ToString(),
+                        OrderNumber = row["Order"].ToString(),
                         Line = Convert.ToInt32(row["Line"]),
                         Width = Convert.ToDouble(row["Width"]),
                         Height = Convert.ToDouble(row["Height"]),
-                        Balance = Convert.ToInt32(row["Balance"])
+                        Balance = Convert.ToInt32(row["Balance"]),
+                        MO = row["Mo"].ToString(),
                     };
                     // Agrega el objeto Orders a la lista
                     ordersList.Add(order);
@@ -752,6 +754,7 @@ namespace MaderaConsola
                     for (int i = 1; i <= ordersList.Count(); i++)
                     {
                         woodMacPac.Line = ordersList[i - 1].Line;
+                        woodMacPac.MO = ordersList[i - 1].MO;
                         woodMacPac.Orden = ordersList[0].OrderNumber;
                         //Dividir entre los barrores entre el balance de la misma linea para que MacPac posteriormente haga la multiplicacion
                         woodMacPac.Bar144 = Convert.ToDouble(barrote144Lineas / ordersList[i - 1].Balance);
