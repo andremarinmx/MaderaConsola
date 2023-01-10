@@ -151,10 +151,10 @@ namespace MaderaConsola
             maxWidth = widthList.Max();
 
             Console.WriteLine("¿Es de acero? SI/NO ");
-            acero = Console.ReadLine();
+            acero = "NO";
 
             Console.WriteLine("¿Tiene motor o jackshaft? SI/NO");
-            motorOjackshaft = Console.ReadLine();
+            motorOjackshaft = "NO";
 
             //Calcular órdenes grandes
             if (maxHeight > 28 || maxWidth > 28)
@@ -770,6 +770,7 @@ namespace MaderaConsola
 
                     woodMacPac.Line = ordersList[0].Line;
                     woodMacPac.Orden = ordersList[0].OrderNumber;
+                    woodMacPac.MO = ordersList[0].MO;
 
                     if (tarima32x32 > 0)
                     {
