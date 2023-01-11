@@ -29,35 +29,56 @@ namespace MaderaConsola
                 return;
             }
         }
+
+        public DataTable OrderListQry()
+        {
+            //Construccion solo las ordenes del opensale
+            string Qry1 = "SELECT DISTINCT SLONO FROM AADAT12.OPENSOPF3";
+            try
+            {
+                iDB2Command command = conAS400.CreateCommand();
+                command.CommandText = Qry1;
+                iDB2DataReader readerIBM = command.ExecuteReader();
+                dt = new DataTable();
+                dt.Load(readerIBM);
+                return dt;
+            }
+            catch (iDB2Exception ex)
+            {
+                Console.WriteLine("Se produjo un error: " + ex.Message);
+                Console.WriteLine("Detalles del error: " + ex.StackTrace);
+                return dt;
+            }
+        }
+
         public DataTable OpenSalesQry(string orderNumber)
         {
             //Construccion del query para obtener el Order, Line, Depto, DEPTO, WIDTH, HEIGHT, BALANCE
-            string Qry = "SELECT AADAT12.EC200M.SPONO AS ORDER, AADAT12.EC200M.SPLNNO AS LINE, MIN(AADAT12.EC200M.SLMONO) AS MO, " + 
-                "AADAT12.OPENSOPF3.ACBAC AS DEPTO, AADAT12.OPENSOPF3.BALANCE, " + 
-                "COALESCE(NULLIF(MAX(CASE WHEN CZVRNM = 'OEWIDTH' THEN CZREFD END),''), " + 
-                "MAX(CASE WHEN CZVRNM = 'WIDTH' THEN CZREFD ELSE NULL END)) AS WIDTH, " + 
-                "COALESCE(NULLIF(MAX(CASE WHEN CZVRNM = 'OEHEIGHT' THEN CZREFD END),''), " + 
-                "MAX(CASE WHEN CZVRNM = 'HEIGHT' THEN CZREFD ELSE NULL END)) AS HEIGHT " + 
-                "FROM AADAT12.EC200M " + 
-                "INNER JOIN AADAT12.OPENSOPF3 " + 
-                "ON AADAT12.EC200M.SPONO = AADAT12.OPENSOPF3.SLONO " + 
-                "AND AADAT12.EC200M.SPLNNO = AADAT12.OPENSOPF3.SLLNNO " + 
-                "INNER JOIN AADAT12.EC241AP " + 
-                "ON AADAT12.EC241AP.SPONO = AADAT12.EC200M.SPONO " + 
-                "AND AADAT12.EC241AP.SPLNNO = AADAT12.EC200M.SPLNNO " + 
-                "WHERE AADAT12.EC200M.SPONO = '" + orderNumber + "' " + 
-                "AND AADAT12.EC200M.SLMONO <> '' " + 
-                "GROUP BY AADAT12.EC200M.SPONO, AADAT12.EC200M.SPLNNO, " + 
-                "AADAT12.OPENSOPF3.ACBAC, AADAT12.OPENSOPF3.BALANCE " + 
+            string Qry2 = "SELECT AADAT12.EC200M.SPONO AS ORDER, AADAT12.EC200M.SPLNNO AS LINE, MIN(AADAT12.EC200M.SLMONO) AS MO, " +
+                "AADAT12.OPENSOPF3.ACBAC AS DEPTO, AADAT12.OPENSOPF3.BALANCE, " +
+                "COALESCE(NULLIF(MAX(CASE WHEN CZVRNM = 'OEWIDTH' THEN CZREFD END),''), " +
+                "MAX(CASE WHEN CZVRNM = 'WIDTH' THEN CZREFD ELSE NULL END)) AS WIDTH, " +
+                "COALESCE(NULLIF(MAX(CASE WHEN CZVRNM = 'OEHEIGHT' THEN CZREFD END),''), " +
+                "MAX(CASE WHEN CZVRNM = 'HEIGHT' THEN CZREFD ELSE NULL END)) AS HEIGHT " +
+                "FROM AADAT12.EC200M " +
+                "INNER JOIN AADAT12.OPENSOPF3 " +
+                "ON AADAT12.EC200M.SPONO = AADAT12.OPENSOPF3.SLONO " +
+                "AND AADAT12.EC200M.SPLNNO = AADAT12.OPENSOPF3.SLLNNO " +
+                "INNER JOIN AADAT12.EC241AP " +
+                "ON AADAT12.EC241AP.SPONO = AADAT12.EC200M.SPONO " +
+                "AND AADAT12.EC241AP.SPLNNO = AADAT12.EC200M.SPLNNO " +
+                "WHERE AADAT12.EC200M.SPONO = '" + orderNumber + "' " +
+                "AND AADAT12.EC200M.SLMONO <> '' " +
+                "GROUP BY AADAT12.EC200M.SPONO, AADAT12.EC200M.SPLNNO, " +
+                "AADAT12.OPENSOPF3.ACBAC, AADAT12.OPENSOPF3.BALANCE " +
                 "ORDER BY AADAT12.EC200M.SPLNNO";
             try
             {
                 iDB2Command command = conAS400.CreateCommand();
-                command.CommandText = Qry;
-                iDB2DataReader readerIBM = command.ExecuteReader();
+                command.CommandText = Qry2;
+                iDB2DataReader readerIBM2 = command.ExecuteReader();
                 dt = new DataTable();
-                dt.Load(readerIBM);
-                conAS400.Close();
+                dt.Load(readerIBM2);
                 return dt;
             }
             catch (iDB2Exception ex)
