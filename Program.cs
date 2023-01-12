@@ -838,6 +838,10 @@ namespace MaderaConsola
                 barrote96Total = 0;
                 barrote144Total = 0;
                 tabla96Total = 0;
+                cantidadCratesDiferentes = 0;
+                heightList.Clear(); ;
+                widthList.Clear();
+                deptList.Clear();
             }
             conAS400.Close();
         }

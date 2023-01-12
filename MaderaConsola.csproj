@@ -82,6 +82,7 @@
     <Compile Include="Properties\WoodOrdenLinesMacPac.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="UploadWood.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
